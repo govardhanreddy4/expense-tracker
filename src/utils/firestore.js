@@ -57,8 +57,7 @@ export function subscribeToTransactions(callback) {
 
   const q = query(
     collection(db, 'transactions'),
-    where("userId", "==", currentUser.uid),
-    orderBy("date", "desc")
+    where("userId", "==", currentUser.uid)
   );
 
   return onSnapshot(q, (snapshot) => {
