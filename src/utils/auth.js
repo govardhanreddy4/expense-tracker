@@ -4,7 +4,10 @@ import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
-  updateProfile
+  updateProfile,
+  GoogleAuthProvider,
+  signInWithPopup,
+  sendPasswordResetEmail
 } from 'firebase/auth';
 import { showToast } from './toast.js';
 
@@ -92,6 +95,31 @@ window.handleSignup = async (email, password) => {
   try {
     await createUserWithEmailAndPassword(auth, email, password);
     showToast('Account created successfully', 'success');
+    return true;
+  } catch (error) {
+    showToast(error.message, 'error');
+    return false;
+  }
+};
+
+window.handleGoogleLogin = async () => {
+  if (!auth) { showToast('Mock Google login success', 'success'); return true; }
+  const provider = new GoogleAuthProvider();
+  try {
+    await signInWithPopup(auth, provider);
+    showToast('Logged in with Google successfully', 'success');
+    return true;
+  } catch (error) {
+    showToast(error.message, 'error');
+    return false;
+  }
+};
+
+window.handleForgotPassword = async (email) => {
+  if (!auth) { showToast('Mock password reset sent to ' + email, 'success'); return true; }
+  try {
+    await sendPasswordResetEmail(auth, email);
+    showToast('Password reset email sent!', 'success');
     return true;
   } catch (error) {
     showToast(error.message, 'error');
