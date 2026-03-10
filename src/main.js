@@ -32,6 +32,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // Set initial route & auth
   setupAuth(router);
 
+  const resetBtn = document.getElementById('reset-btn');
+  const editBtn = document.getElementById('edit-btn');
+  const dineshBtn = document.getElementById('dinesh-btn');
+
+  if (resetBtn) resetBtn.addEventListener('click', () => alert('Reset button clicked!'));
+  if (editBtn) editBtn.addEventListener('click', () => alert('Edit button clicked!'));
+  if (dineshBtn) dineshBtn.addEventListener('click', () => alert('Dinesh button clicked!'));
+
   // Register Service Worker for PWA
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
